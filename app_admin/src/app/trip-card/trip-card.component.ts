@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Trip } from '../models/trips';
 import { Router } from '@angular/router';
+import { TripDataService } from '../services/trip-data.service';
 
 @Component({
   selector: 'app-trip-card',
@@ -14,12 +15,21 @@ export class TripCardComponent {
 
   @Input() trip!: Trip;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private tripsService: TripDataService
+  ) {}
 
   public editTrip(trip: Trip): void {
     localStorage.setItem("tripCode", trip.code);
     this.router.navigate(['/edit-trip']);
   }
+
+  public deleteTrip(): void {
+    if (confirm('Are you sure you want to delete this trip?')) {
+      this.tripsService.deleteTrip(this.trip.code).subscribe(() => {
+        window.location.reload();
+      });
+    }
+  }
 }
-
-

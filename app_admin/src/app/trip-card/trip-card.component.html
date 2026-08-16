@@ -10,12 +10,14 @@
     </h6>
 
     <p class="card-subtitle mt-3 mb-3 text-muted">
-      {{trip.length}} only {{trip.perPerson | currency:'USD':true}} per person
+      {{trip.length}} only {{trip.perPerson | currency:'USD':'symbol'}} per person
     </p>
 
     <p class="card-text" [innerHTML]="trip.description"></p>
 
     <button class="btn btn-warning mt-2" (click)="editTrip(trip)">Edit Trip</button>
 
+    <button class="btn btn-danger mt-2 ms-2" (click)="deleteTrip()">Delete Trip</button>
   </div>
 </div>
+
